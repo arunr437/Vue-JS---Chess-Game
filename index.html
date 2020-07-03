@@ -1,0 +1,74 @@
+<html>
+
+  <head>
+    <title>Vue JS Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="gameContainer">
+      <div id="heading">
+        {{status}}
+      </div>
+      <div id="body">
+        <div v-for="(square,i) in squares" v-on:click="click(i,square)" v-bind:class="{ 
+              whitePawn : square.value == 'WP', 
+              blackPawn : square.value == 'BP',
+              whiteRook : square.value == 'WR',
+              blackRook : square.value == 'BR',
+              whiteKnight : square.value == 'WH',
+              blackKnight : square.value == 'BH',
+              whiteBishop : square.value == 'WB',
+              blackBishop : square.value == 'BB',
+              whiteQueen : square.value == 'WQ',
+              blackQueen : square.value == 'BQ',
+              whiteKing : square.value == 'WK',
+              blackKing : square.value == 'BK',
+              selected : square.selected,
+              turn : square.currentTurn,
+              piece : true
+            }" class="square">
+          <img v-if="square.value=='WP'" src="Images/whitePawn.png" width="45px" height="45px" />
+          <img v-if="square.value=='BP'" src="Images/blackPawn.png" width="45px" height="45px" />
+          <img v-if="square.value=='WR'" src="Images/whiteRook.png" width="50px" height="60px" />
+          <img v-if="square.value=='BR'" src="Images/blackRook.png" width="50px" height="60px" />
+          <img v-if="square.value=='WB'" src="Images/whiteBishop.png" width="50px" height="60px" />
+          <img v-if="square.value=='BB'" src="Images/blackBishop.png" width="50px" height="60px" />
+          <img v-if="square.value=='WH'" src="Images/whiteKnight.png" width="50px" height="60px" />
+          <img v-if="square.value=='BH'" src="Images/blackKnight.png" width="50px" height="60px" />
+          <img v-if="square.value=='WQ'" src="Images/whiteQueen.png" width="50px" height="60px" />
+          <img v-if="square.value=='BQ'" src="Images/blackQueen.png" width="50px" height="60px" />
+          <img v-if="square.value=='WK'" src="Images/whiteKing.png" width="50px" height="60px" />
+          <img v-if="square.value=='BK'" src="Images/blackKing.png" width="50px" height="60px" />
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="script.js"></script>
+    <script type="text/javascript">
+      let currentBoard = new Board();
+
+      // Binding Vue.JS object to the HTML element 
+      let game = new Vue({
+        el: "#gameContainer",
+        data: currentBoard,
+        computed: {
+          status: function () {
+            if (this.running) {
+              return this.turn + "'s turn";
+            }
+
+            if (this.winner) {
+              return this.winner + " has won the game!";
+            }
+
+            if (!this.winner && !this.running) {
+              return "It's a draw";
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+
+</html>
