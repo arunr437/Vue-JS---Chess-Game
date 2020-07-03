@@ -6,10 +6,13 @@
   </head>
 
   <body>
+    <!-- Main container of the game -->
     <div id="gameContainer">
+      <!-- Heading section. Shows who's trun it is -->
       <div id="heading">
         {{status}}
       </div>
+      <!-- Chess Board -->
       <div id="body">
         <div v-for="(square,i) in squares" v-on:click="click(i,square)" v-bind:class="{ 
               whitePawn : square.value == 'WP', 
@@ -46,9 +49,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="script.js"></script>
     <script type="text/javascript">
+      // Creating a board. The constructor method of Board class will initialize the starting values
       let currentBoard = new Board();
 
-      // Binding Vue.JS object to the HTML element 
+      // Binding Vue.JS object to the HTML element "gameContainer"
       let game = new Vue({
         el: "#gameContainer",
         data: currentBoard,
